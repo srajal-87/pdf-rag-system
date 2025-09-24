@@ -88,16 +88,16 @@ Required configurations in `.env`:
 
 ```env
 # Database Configuration
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
-POSTGRES_DB=rag_system
-POSTGRES_USER=rag_user
-POSTGRES_PASSWORD=rag_password
+POSTGRES_HOST=
+POSTGRES_PORT=
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=r
 
 # Vector Database
-QDRANT_HOST=localhost
-QDRANT_PORT=6333
-QDRANT_COLLECTION=pdf_documents
+QDRANT_HOST=
+QDRANT_PORT=
+QDRANT_COLLECTION=
 
 # LLM Configuration (REQUIRED - Get from Google AI Studio)
 GEMINI_API_KEY=your_actual_gemini_api_key_here
@@ -238,80 +238,6 @@ curl -X POST "http://localhost:8000/query" \
   }'
 ```
 
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### PostgreSQL Connection Error
-
-```bash
-# Check PostgreSQL is running
-sudo systemctl status postgresql
-
-# Verify connection
-psql -U rag_user -d rag_system -c "SELECT 1;"
-```
-
-#### Qdrant Connection Error
-
-```bash
-# Check Qdrant is running
-curl http://localhost:6333/collections
-
-# If using Docker, check container
-docker ps | grep qdrant
-```
-
-#### Gemini API Error
-
-- Verify API key is correct in `.env`
-- Check API quotas at [Google AI Studio](https://makersuite.google.com/app/apikey)
-- Test API key:
-
-```python
-import google.generativeai as genai
-genai.configure(api_key="your_api_key")
-model = genai.GenerativeModel("gemini-pro")
-response = model.generate_content("Hello")
-print(response.text)
-```
-
-#### PDF Processing Failures
-
-- Ensure PDF is not corrupted
-- Check PDF has extractable text (not scanned images)
-- Monitor backend logs for specific errors
-- Check document status via API:
-
-```bash
-curl http://localhost:8000/status/{doc_id}
-```
-
-#### Memory Issues with Large PDFs
-
-- Adjust `CHUNK_SIZE` in `.env` to smaller values
-- Process PDFs sequentially, not in parallel
-- Monitor system memory during processing
-
-### Logs and Monitoring
-
-#### Backend Logs
-
-```bash
-# View FastAPI logs
-tail -f uvicorn.log
-
-# Database queries log
-tail -f /var/log/postgresql/postgresql-*.log
-```
-
-#### Frontend Logs
-
-```bash
-# Streamlit logs are displayed in terminal
-# Look for error messages and stack traces
-```
-
 ## 📊 Performance Optimization
 
 ### Database Indexes
@@ -416,10 +342,6 @@ volumes:
 4. **Backup**: Regular PostgreSQL and Qdrant backups
 5. **Scaling**: Horizontal scaling for FastAPI workers
 
-## 📝 License
-
-MIT License - See LICENSE file for details
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -428,22 +350,3 @@ MIT License - See LICENSE file for details
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
-## 📞 Support
-
-For issues and questions:
-- Check the troubleshooting section
-- Review backend logs for errors
-- Create an issue with detailed error messages
-
-## 🎯 Project Roadmap
-
-- [ ] Multi-user authentication
-- [ ] Support for more file formats (DOCX, TXT)
-- [ ] Advanced chunking strategies
-- [ ] Multiple LLM providers
-- [ ] Export chat history
-- [ ] Advanced analytics dashboard
-- [ ] Batch document processing
-- [ ] API rate limiting
-- [ ] Webhook notifications
-- [ ] Document versioning
