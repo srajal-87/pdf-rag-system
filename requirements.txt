@@ -1,0 +1,28 @@
+# Core Framework
+streamlit>=1.28.0
+streamlit-extras
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Database & Vector Store
+qdrant-client>=1.6.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.7
+alembic>=1.12.0
+
+# ML & Embeddings
+sentence-transformers>=2.2.2
+torch>=2.1.0
+
+# PDF Processing
+pymupdf>=1.23.0  
+
+# LLM Integration
+google-generativeai>=0.3.0
+
+# Utilities
+python-multipart
+python-dotenv>=1.0.0
+pydantic>=2.4.0
+requests>=2.31.0
+numpy>=1.24.0

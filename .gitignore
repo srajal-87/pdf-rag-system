@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Qdrant storage
+qdrant_storage/
+.env
+__pycache__/
+*.pyc
+
+# OS/system files
+.DS_Store
+Thumbs.db
